@@ -22,7 +22,7 @@ namespace library_manager.Application.Services
             return entity;
         }
 
-        public async Task<Book?> DeleteAsync(int id)
+        public async Task<Book> DeleteAsync(int id)
         {
             Book book = await _unitOfWork.BooksRepository.GetByIdAsync(id);
             if(book != null) 

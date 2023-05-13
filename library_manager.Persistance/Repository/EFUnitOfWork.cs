@@ -24,7 +24,7 @@ namespace library_manager.Persistance.Repository
             _usersRepository= new Lazy<IRepository<User>>(()=> new EFRepository<User>(context));
         }
 
-        IRepository<Book> IUnitOfWork.BooksRepository => _booksRepository.Value;
+        public IRepository<Book> BooksRepository => _booksRepository.Value;
         IRepository<User> IUnitOfWork.UsersRepository => _usersRepository.Value;
 
         public async Task CreateDatabaseAsync()

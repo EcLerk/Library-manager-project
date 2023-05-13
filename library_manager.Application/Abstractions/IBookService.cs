@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace library_manager.Application.Abstractions
 {
-    public interface IBookService
+    public interface IBookService: IBaseService<Book>
     {
-        Task<IEnumerable<Book>> GetAllAsync();
-        Task<Book> GetByIdAsync(int id);
-        Task<Book> AddAsync(Book entity);
-        Task<Book> UpdateAsync(Book entity);
-        Task<Book> DeleteAsync(int id);
+       
     }
 }

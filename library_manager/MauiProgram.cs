@@ -6,12 +6,15 @@ using library_manager.Persistance.Data;
 using library_manager.Domain.Entities;
 using library_manager.Persistance.Repository;
 using library_manager.Application.Services;
-using CommunityToolkit.Maui;
 using library_manager.Domain.Abstractions;
 using library_manager.Application.Abstractions;
 using library_manager.ViewModel;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System;
+using System.Reflection;
+using CommunityToolkit.Maui;
+using library_manager.Pages;
 
 namespace library_manager;
 
@@ -19,7 +22,9 @@ public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
 	{
-		var builder = MauiApp.CreateBuilder();
+        string settingsStream = "library_manager.appsettings.json";
+
+        var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
@@ -32,30 +37,35 @@ public static class MauiProgram
 
 		#region DataBase
 
-		var confBuilder = new ConfigurationBuilder();
-		// установка пути к текущему каталогу
-		confBuilder.SetBasePath(Directory.GetCurrentDirectory());
-		// получаем конфигурацию из файла appsettings.json
-		confBuilder.AddJsonFile("E:/Kursovaya 2.0/library_manager/library_manager/appsettings.json");
-		// создаем конфигурацию
-		var config = confBuilder.Build();
-		// получаем строку подключения
-		string connectionString = ConfigurationExtensions.GetConnectionString(config, "DefaultConnection");
+		//var confBuilder = new ConfigurationBuilder();
+		//// установка пути к текущему каталогу
+		//confBuilder.SetBasePath(Directory.GetCurrentDirectory());
+		//// получаем конфигурацию из файла appsettings.json
+		//confBuilder.AddJsonFile("E:/Kursovaya 2.0/library_manager/library_manager/appsettings.json");
+		//// создаем конфигурацию
+		//var config = confBuilder.Build();
+		//// получаем строку подключения
+		//string connectionString = ConfigurationExtensions.GetConnectionString(config, "DefaultConnection");
 
-		var optionsBuilder = new DbContextOptionsBuilder<LibraryDbContext>();
-		var options = optionsBuilder.UseSqlite(connectionString).Options;
+		//var optionsBuilder = new DbContextOptionsBuilder<LibraryDbContext>();
+		//var options = optionsBuilder.UseSqlite(connectionString).Options;
+		//#endregion
+
+
+		//      EFUnitOfWork unitOfWork = new EFUnitOfWork(new LibraryDbContext(options));
+		//unitOfWork.CreateDatabaseAsync().Wait();
+		//BookService bookService = new BookService(unitOfWork);
+		////bookService.AddAsync(new Book { Id = 1, Name = "War and Peace" }).Wait();
+		////bookService.AddAsync(new Book { Id = 2, Name = "1984" }).Wait();
 		#endregion
-
-
-        EFUnitOfWork unitOfWork = new EFUnitOfWork(new LibraryDbContext(options));
-		unitOfWork.CreateDatabaseAsync().Wait();
-		BookService bookService = new BookService(unitOfWork);
-		//bookService.AddAsync(new Book { Id = 1, Name = "War and Peace" }).Wait();
-		//bookService.AddAsync(new Book { Id = 2, Name = "1984" }).Wait();
-
-		//bookService.DeleteAsync(3).Wait();
 		
+		var a = Assembly.GetExecutingAssembly();
+		using var stream = a.GetManifestResourceStream(settingsStream);
+		builder.Configuration.AddJsonStream(stream);
+
         setupServices(builder.Services);
+        AddDbContext(builder);
+		SeedData(builder.Services);
 
 #if DEBUG
 		builder.Logging.AddDebug();
@@ -71,19 +81,45 @@ public static class MauiProgram
 		//services.AddSingleton<IRepository<Book>, EFRepository<Book>>();
 		services.AddSingleton<IBookService, BookService>();
 		services.AddSingleton<IUserService, UserService>();
+        services.AddSingleton<BooksViewModel>();
+		services.AddTransient<NewPage1>();
+        
 
-		try
+	}
+
+    private static void AddDbContext(MauiAppBuilder builder)
+    {
+        var connectionString = 
+            builder.Configuration.GetConnectionString("SqlLiteConnection");
+
+        var options = new DbContextOptionsBuilder<LibraryDbContext>()
+            .UseSqlite(connectionString)
+		.Options;
+		builder.Services.AddScoped<LibraryDbContext>((s) => new LibraryDbContext(options));
+    }
+
+	public async static void SeedData(IServiceCollection services)
+	{
+		using var provider = services.BuildServiceProvider();
+
+		var unitOfWork = provider.GetService<IUnitOfWork>();
+
+		await unitOfWork.RemoveDatabaseAsync();
+		await unitOfWork.CreateDatabaseAsync();
+
+
+		IReadOnlyList<Book> books = new List<Book>()
 		{
-            services.AddTransient<BooksViewModel>();
-        }
-		catch (Exception ex)
+			new Book() { Id = 1, Name = "War and Peace", NumberOfBooks = 1 },
+			new Book() { Id = 2, Name = "1984", NumberOfBooks = 10 }
+		};
+
+		foreach(var book in books) 
 		{
-			Debug.WriteLine(ex.Message);
-			
+			await unitOfWork.BooksRepository.AddAsync(book);
+
 		}
-			
 
-		services.AddSingleton<TestPage>();
-
+		await unitOfWork.SaveAllAsync();
 	}
 }

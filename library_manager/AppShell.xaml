@@ -3,15 +3,16 @@
     x:Class="library_manager.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:library_manager.Pages"
     xmlns:local="clr-namespace:library_manager">
 
-    <!--<ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />-->   
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:TestPage}"
+        ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    <ShellContent
+        Title="Page1"
+        ContentTemplate="{DataTemplate pages:NewPage1}"
+        Route="NewPage1" />
 
 </Shell>

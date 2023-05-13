@@ -17,12 +17,12 @@ namespace library_manager.ViewModel
     {
         private readonly IBookService _bookService;
 
-        public BooksViewModel()
-        { }
+        [ObservableProperty]
+        string someText;
 
         public BooksViewModel(IBookService bookService)
         {
-
+            someText = "HHHHIIIIIIIII";
             _bookService = bookService;
         }
 
@@ -37,6 +37,9 @@ namespace library_manager.ViewModel
 
         public async Task GetBooks()
         {
+
+            var selectedBook = SelectedBook;
+
             try
             {
                 var books = await _bookService.GetAllAsync();
@@ -53,6 +56,11 @@ namespace library_manager.ViewModel
             catch(Exception ex)
             {
                 Debug.WriteLine(ex);
+            }
+
+            if (selectedBook != null)
+            {
+                SelectedBook = await _bookService.GetByIdAsync(selectedBook.Id);
             }
         }
     }

@@ -14,9 +14,7 @@ namespace library_manager.Persistance.Data
 
         public LibraryDbContext(DbContextOptions<LibraryDbContext> options)
             : base(options)
-        {
-            Database.EnsureCreated();
-        }
+        { }
 
     }
 }
