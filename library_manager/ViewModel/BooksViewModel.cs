@@ -10,6 +10,7 @@ using library_manager.Application.Abstractions;
 using library_manager.Domain.Entities;
 using library_manager.Application.Services;
 using System.Diagnostics;
+using library_manager.Pages;
 
 namespace library_manager.ViewModel
 {
@@ -17,12 +18,8 @@ namespace library_manager.ViewModel
     {
         private readonly IBookService _bookService;
 
-        [ObservableProperty]
-        string someText;
-
         public BooksViewModel(IBookService bookService)
         {
-            someText = "HHHHIIIIIIIII";
             _bookService = bookService;
         }
 
@@ -34,6 +31,8 @@ namespace library_manager.ViewModel
         [RelayCommand]
         public async void UpdateBookList() => await GetBooks();
 
+        [RelayCommand]
+        async void ShowDetails(Book book) => await GoToDetailsPage(book);
 
         public async Task GetBooks()
         {
@@ -62,6 +61,19 @@ namespace library_manager.ViewModel
             {
                 SelectedBook = await _bookService.GetByIdAsync(selectedBook.Id);
             }
+        }
+
+        private async Task GoToDetailsPage(Book book)
+        {
+            if (book == null)
+                return;
+
+            IDictionary<string, object> parameters = new Dictionary<string, object>()
+            {
+                {"Book", book }
+            };
+
+            await Shell.Current.GoToAsync(nameof(BookDetails), parameters);
         }
     }
 }

@@ -76,14 +76,18 @@ public static class MauiProgram
 
     private static void setupServices(IServiceCollection services)
 	{
-		//services.AddSingleton<IBaseService<Book>>();
+		//Services
 		services.AddSingleton<IUnitOfWork, EFUnitOfWork>();
-		//services.AddSingleton<IRepository<Book>, EFRepository<Book>>();
 		services.AddSingleton<IBookService, BookService>();
 		services.AddSingleton<IUserService, UserService>();
+
+		//ViewModels
         services.AddSingleton<BooksViewModel>();
+        services.AddSingleton<BookDetailsViewModel>();
+
+		//Pages
 		services.AddTransient<NewPage1>();
-        
+		services.AddTransient<BookDetails>();
 
 	}
 
@@ -111,7 +115,10 @@ public static class MauiProgram
 		IReadOnlyList<Book> books = new List<Book>()
 		{
 			new Book() { Id = 1, Name = "War and Peace", NumberOfBooks = 1 },
-			new Book() { Id = 2, Name = "1984", NumberOfBooks = 10 }
+			new Book() { Id = 2, Name = "1984", NumberOfBooks = 10 },
+			new Book() { Id = 3, Name = "Pride and Prejudice", NumberOfBooks = 3 },
+			new Book() { Id = 4, Name = "The Great Gatsby", NumberOfBooks = 5 },
+			new Book() { Id = 5, Name = "Gone with the wind", NumberOfBooks = 30 }
 		};
 
 		foreach(var book in books) 

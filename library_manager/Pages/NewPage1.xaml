@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:library_manager.ViewModel"
+             xmlns:entities="clr-namespace:library_manager.Domain.Entities;assembly=library_manager.Domain"
              x:DataType="models:BooksViewModel"
              x:Class="library_manager.Pages.NewPage1"
              Title="NewPage1">
@@ -12,19 +13,78 @@
                                         Command="{Binding UpdateBookListCommand}"/>
 
     </ContentPage.Behaviors>
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding SomeText}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
 
-        <Picker Title="Select a book" 
+    <VerticalStackLayout>
+
+        <Grid ColumnDefinitions="*,*,*" RowDefinitions="*">
+            <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                   Text="       №"
+                   FontSize="16"
+                   BackgroundColor="Beige"
+                   Grid.Column="0"/>
+
+            <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                   Text="Title"
+                   FontSize="16"
+                   BackgroundColor="LightYellow"
+                   Grid.Column="1"/>
+
+            <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                   Text="Number of books"
+                   FontSize="16"
+                   BackgroundColor="Beige"
+                   Grid.Column="2"/>
+            
+        </Grid>
+
+        <CollectionView ItemsSource="{Binding Books}"
+                        SelectedItem="{Binding SelectedBook}"
+                        SelectionMode="Single"  x:Name="ItemsCollectionView"
+                        SelectionChangedCommand="{Binding ShowDetailsCommand}"
+                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference ItemsCollectionView}}">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="entities:Book">
+                    <Grid  Padding="5" >
+
+                        <Border Stroke="LightGray" BackgroundColor="Snow"
+                                >
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+                            
+                            <Grid ColumnDefinitions="*,*,*" Padding="20" >
+                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                   Text="{Binding Id}"
+                                   FontSize="12"  
+                                   Grid.Column="0"/>
+                                
+                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                   Text="{Binding Name}"
+                                   FontSize="20"
+                                   Grid.Column="1"/>
+
+                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                   Text="{Binding NumberOfBooks}"
+                                   FontSize="12" 
+                                   Grid.Column="2"/>
+                                
+                            </Grid>    
+                           
+
+                            
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!--<Picker Title="Select a book" 
                     ItemsSource="{Binding Books}"
                     SelectedItem="{Binding SelectedBook}"
                     ItemDisplayBinding="{Binding Name}"
                     >
 
-        </Picker>
+        </Picker>-->
     </VerticalStackLayout>
 </ContentPage>
