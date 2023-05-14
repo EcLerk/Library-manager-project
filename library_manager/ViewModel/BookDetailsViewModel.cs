@@ -13,6 +13,9 @@ namespace library_manager.ViewModel
     {
         [ObservableProperty]
         Book book;
+
+        [ObservableProperty]
+        ImageSource imageSource;
         public BookDetailsViewModel()
         {
             

@@ -10,7 +10,6 @@ namespace library_manager.Domain.Entities
 {
     public class Book : Entity
     {
-
         public string? Name { get; set; }
         public Author? author;
         public int? Year { get; set; }

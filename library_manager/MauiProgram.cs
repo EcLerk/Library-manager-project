@@ -84,10 +84,13 @@ public static class MauiProgram
 		//ViewModels
         services.AddSingleton<BooksViewModel>();
         services.AddSingleton<BookDetailsViewModel>();
+        services.AddTransient<LoginViewModel>();
 
-		//Pages
-		services.AddTransient<NewPage1>();
+        //Pages
+        services.AddTransient<NewPage1>();
 		services.AddTransient<BookDetails>();
+		services.AddTransient<LoginPage>();
+		services.AddTransient<SingUpPage>();
 
 	}
 
