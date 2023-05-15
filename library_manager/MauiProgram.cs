@@ -15,6 +15,7 @@ using System;
 using System.Reflection;
 using CommunityToolkit.Maui;
 using library_manager.Pages;
+using library_manager.Domain.Entities.Users;
 
 namespace library_manager;
 
@@ -35,30 +36,6 @@ public static class MauiProgram
 			});
 
 
-		#region DataBase
-
-		//var confBuilder = new ConfigurationBuilder();
-		//// установка пути к текущему каталогу
-		//confBuilder.SetBasePath(Directory.GetCurrentDirectory());
-		//// получаем конфигурацию из файла appsettings.json
-		//confBuilder.AddJsonFile("E:/Kursovaya 2.0/library_manager/library_manager/appsettings.json");
-		//// создаем конфигурацию
-		//var config = confBuilder.Build();
-		//// получаем строку подключения
-		//string connectionString = ConfigurationExtensions.GetConnectionString(config, "DefaultConnection");
-
-		//var optionsBuilder = new DbContextOptionsBuilder<LibraryDbContext>();
-		//var options = optionsBuilder.UseSqlite(connectionString).Options;
-		//#endregion
-
-
-		//      EFUnitOfWork unitOfWork = new EFUnitOfWork(new LibraryDbContext(options));
-		//unitOfWork.CreateDatabaseAsync().Wait();
-		//BookService bookService = new BookService(unitOfWork);
-		////bookService.AddAsync(new Book { Id = 1, Name = "War and Peace" }).Wait();
-		////bookService.AddAsync(new Book { Id = 2, Name = "1984" }).Wait();
-		#endregion
-		
 		var a = Assembly.GetExecutingAssembly();
 		using var stream = a.GetManifestResourceStream(settingsStream);
 		builder.Configuration.AddJsonStream(stream);
@@ -85,6 +62,7 @@ public static class MauiProgram
         services.AddSingleton<BooksViewModel>();
         services.AddSingleton<BookDetailsViewModel>();
         services.AddTransient<LoginViewModel>();
+        services.AddTransient<SingUpViewModel>();
 
         //Pages
         services.AddTransient<NewPage1>();
@@ -114,6 +92,7 @@ public static class MauiProgram
 		await unitOfWork.RemoveDatabaseAsync();
 		await unitOfWork.CreateDatabaseAsync();
 
+		//var bookList = unitOfWork.BooksRepository.ListAllAsync();
 
 		IReadOnlyList<Book> books = new List<Book>()
 		{
@@ -129,7 +108,8 @@ public static class MauiProgram
 			await unitOfWork.BooksRepository.AddAsync(book);
 
 		}
-
+		
+		await unitOfWork.UsersRepository.AddAsync(new User() { UserName = "n", Password = "n" });
 		await unitOfWork.SaveAllAsync();
 	}
 }

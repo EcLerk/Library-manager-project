@@ -43,9 +43,10 @@ namespace library_manager.Application.Services
             return await _unitOfWork.BooksRepository.GetByIdAsync(id);
         }
 
-        public Task<Book> UpdateAsync(Book entity)
+        public async Task<Book> UpdateAsync(Book entity)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.BooksRepository.UpdateAsync(entity);
+            return entity;
         }
     }
 }

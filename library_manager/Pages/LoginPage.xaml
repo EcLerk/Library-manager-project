@@ -28,15 +28,17 @@
 
                 <Entry Placeholder="UserName"
                        PlaceholderColor="Gray"
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center"
+                       Text="{Binding User.UserName}"/>
                 
                 <Entry Placeholder="Password"
                        IsPassword="True"
                        PlaceholderColor="Gray"
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center"
+                       Text="{Binding User.Password, Mode=OneWayToSource}"/>
                 
                 <Button Text="Log In"
-                        Command="{Binding ShowBooksCommand}"/>
+                        Command="{Binding UserLoginCommand}"/>
 
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                     <Label Text="Don't have an account?"
