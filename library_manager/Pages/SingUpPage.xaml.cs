@@ -4,8 +4,9 @@ namespace library_manager.Pages;
 
 public partial class SingUpPage : ContentPage
 {
-	public SingUpPage()
+	public SingUpPage(SingUpViewModel vm)
 	{
 		InitializeComponent();
+		BindingContext = vm;
 	}
 }

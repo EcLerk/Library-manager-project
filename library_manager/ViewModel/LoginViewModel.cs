@@ -16,14 +16,16 @@ namespace library_manager.ViewModel
     {
         private readonly IUserService _userService;
 
+        [ObservableProperty]
+        User user;
+        [ObservableProperty]
+        bool isExist = false;
+
         public LoginViewModel(IUserService userService)
         {
             _userService = userService;
+            user = new User();
         }
-
-        [ObservableProperty]
-        User user = new User();
-
 
         [RelayCommand]
         async void ShowBooks() => await GoToBooksPage();
@@ -31,7 +33,7 @@ namespace library_manager.ViewModel
         async void ShowSingUp() => await GoToSingUpPage();
 
         [RelayCommand]
-        async Task UserLogin() => await CheckUser();
+        async Task UserLogin() => await OnLoginButtonClicked();
 
         private async Task GoToBooksPage()
         {
@@ -43,10 +45,21 @@ namespace library_manager.ViewModel
             await Shell.Current.GoToAsync(nameof(SingUpPage));
         }
 
-        private async Task CheckUser()
+        private async Task OnLoginButtonClicked()
         {
-            await _userService.AddAsync(User);
-            GoToBooksPage();
+            var checkUser = await _userService.GetByNameAsync(User.UserName);
+
+            if (checkUser == null)
+                IsExist = true;
+            else
+            {
+                if (checkUser.Password == User.Password)
+                    await GoToBooksPage();
+                else
+                    IsExist = true;
+            }
         }
+
+        
     }
 }

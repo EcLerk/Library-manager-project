@@ -89,27 +89,27 @@ public static class MauiProgram
 
 		var unitOfWork = provider.GetService<IUnitOfWork>();
 
-		await unitOfWork.RemoveDatabaseAsync();
+		//await unitOfWork.RemoveDatabaseAsync();
 		await unitOfWork.CreateDatabaseAsync();
 
 		//var bookList = unitOfWork.BooksRepository.ListAllAsync();
 
-		IReadOnlyList<Book> books = new List<Book>()
-		{
-			new Book() { Id = 1, Name = "War and Peace", NumberOfBooks = 1 },
-			new Book() { Id = 2, Name = "1984", NumberOfBooks = 10 },
-			new Book() { Id = 3, Name = "Pride and Prejudice", NumberOfBooks = 3 },
-			new Book() { Id = 4, Name = "The Great Gatsby", NumberOfBooks = 5 },
-			new Book() { Id = 5, Name = "Gone with the wind", NumberOfBooks = 30 }
-		};
+		//IReadOnlyList<Book> books = new List<Book>()
+		//{
+		//	new Book() { Id = 1, Name = "War and Peace", NumberOfBooks = 1 },
+		//	new Book() { Id = 2, Name = "1984", NumberOfBooks = 10 },
+		//	new Book() { Id = 3, Name = "Pride and Prejudice", NumberOfBooks = 3 },
+		//	new Book() { Id = 4, Name = "The Great Gatsby", NumberOfBooks = 5 },
+		//	new Book() { Id = 5, Name = "Gone with the wind", NumberOfBooks = 30 }
+		//};
 
-		foreach(var book in books) 
-		{
-			await unitOfWork.BooksRepository.AddAsync(book);
+		//foreach(var book in books) 
+		//{
+		//	await unitOfWork.BooksRepository.AddAsync(book);
 
-		}
+		//}
 		
-		await unitOfWork.UsersRepository.AddAsync(new User() { UserName = "n", Password = "n" });
-		await unitOfWork.SaveAllAsync();
+		//await unitOfWork.UsersRepository.AddAsync(new User() { UserName = "n", Password = "n" });
+		//await unitOfWork.SaveAllAsync();
 	}
 }

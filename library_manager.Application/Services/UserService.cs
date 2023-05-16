@@ -50,5 +50,10 @@ namespace library_manager.Application.Services
             await _unitOfWork.UsersRepository.UpdateAsync(entity);
             return entity;
         }
+
+        public async Task<User> GetByNameAsync(string name)
+        {
+            return await _unitOfWork.UsersRepository.FirstOrDefaultAsync(entity => entity.UserName == name);
+        }
     }
 }

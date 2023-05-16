@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:library_manager.ViewModel"
+             x:DataType="models:SingUpViewModel"
              x:Class="library_manager.Pages.SingUpPage"
              Title="SingUpPage">
 
@@ -26,15 +28,17 @@
 
                 <Entry Placeholder="UserName"
                        PlaceholderColor="Gray"
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center"
+                       Text="{Binding User.UserName, Mode=OneWayToSource}"/>
 
                 <Entry Placeholder="Password"
                        IsPassword="True"
                        PlaceholderColor="Gray"
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center"
+                       Text="{Binding User.Password, Mode=OneWayToSource}"/>
 
                 <Button Text="Sing Up"
-                        Command="{Binding ShowBooksCommand}"/>
+                        Command="{Binding UserSingUpCommand}"/>
 
             </VerticalStackLayout>
 

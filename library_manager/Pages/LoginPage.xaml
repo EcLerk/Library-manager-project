@@ -26,20 +26,47 @@
                        VerticalOptions="Center"
                        TextColor="Black"/>
 
-                <Entry Placeholder="UserName"
+                <Entry x:Name="userNameEntry"
+                       Placeholder="UserName"
                        PlaceholderColor="Gray"
                        VerticalOptions="Center"
-                       Text="{Binding User.UserName}"/>
-                
-                <Entry Placeholder="Password"
+                       Text="{Binding User.UserName, Mode=OneWayToSource}"/>
+
+                <Entry x:Name="passwordEntry"
+                       Placeholder="Password"
                        IsPassword="True"
                        PlaceholderColor="Gray"
                        VerticalOptions="Center"
                        Text="{Binding User.Password, Mode=OneWayToSource}"/>
-                
-                <Button Text="Log In"
-                        Command="{Binding UserLoginCommand}"/>
 
+                <Label Text ="UserName or Password enterred incorrectly"
+                       FontSize="12"
+                       TextColor="Red"
+                       IsVisible="{Binding IsExist}"/>
+
+                <Button Text="Log In"
+                        Command="{Binding UserLoginCommand}" 
+                        BackgroundColor="{StaticResource Primary}" TextColor="White">
+                    
+                    <!--<Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding Source={x:Reference userNameEntry}, Path=Text.Length}"
+                            Value="0">
+                            <Setter Property="IsEnabled" Value="False" />
+                            <Setter Property="BackgroundColor" Value="LightGray"/>
+                            <Setter Property="TextColor" Value="Gray"/>
+                        </DataTrigger>
+
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding Source={x:Reference passwordEntry}, Path=Text.Length}"
+                            Value="0">
+                            <Setter Property="IsEnabled" Value="False" />
+                            <Setter Property="BackgroundColor" Value="LightGray"/>
+                            <Setter Property="TextColor" Value="Gray"/>
+                        </DataTrigger>
+                    </Button.Triggers>-->
+                    
+                </Button>
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                     <Label Text="Don't have an account?"
                            HorizontalOptions="End"
