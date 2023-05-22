@@ -37,6 +37,17 @@
                        VerticalOptions="Center"
                        Text="{Binding User.Password, Mode=OneWayToSource}"/>
 
+                <Label Text="User is already exist"
+                       FontSize="12"
+                       TextColor="Red"
+                       IsVisible="{Binding IsExist}"/>
+                
+                
+                <Label Text="Incorrect input"
+                       FontSize="12"
+                       TextColor="Red"
+                       IsVisible="{Binding IsEntryEmpty}"/>
+
                 <Button Text="Sing Up"
                         Command="{Binding UserSingUpCommand}"/>
 

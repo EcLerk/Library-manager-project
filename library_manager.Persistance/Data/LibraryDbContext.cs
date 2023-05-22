@@ -17,5 +17,12 @@ namespace library_manager.Persistance.Data
             : base(options)
         { }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .Property(role => role.UserRole).HasConversion<string>();
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

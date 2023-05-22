@@ -2,12 +2,11 @@ using library_manager.ViewModel;
 
 namespace library_manager.Pages;
 
-public partial class NewPage1 : ContentPage
+public partial class AddBookPage : ContentPage
 {
-	public NewPage1(BooksViewModel vm)
+	public AddBookPage(AddBookViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;
-		
 	}
 }

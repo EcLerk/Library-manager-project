@@ -15,10 +15,11 @@
         Title="Login"
         ContentTemplate="{DataTemplate pages:LoginPage}"
         Route="LoginPage" />
-    
+
     <ShellContent
-        Title="Page1"
+        Title="NewPage1"
         ContentTemplate="{DataTemplate pages:NewPage1}"
-        Route="NewPage1" />
+        Route="NewPage1"
+        />
 
 </Shell>

@@ -17,6 +17,11 @@ namespace library_manager.ViewModel
 
         [ObservableProperty]
         User user;
+        [ObservableProperty]
+        bool isExist = false;
+        [ObservableProperty]
+        bool isEntryEmpty;
+
         public SingUpViewModel(IUserService userService)
         {
             _userService = userService;
@@ -34,8 +39,24 @@ namespace library_manager.ViewModel
         [RelayCommand]
         async Task UserSingUp()
         {
-            await _userService.AddAsync(this.User);
-            await GoToBooksPage();
+            IsEntryEmpty = false;
+            var user = await _userService.GetByNameAsync(User.UserName);
+
+            if (user != null)
+                IsExist = true;
+            else
+            {
+                if (User.UserName != null && User.Password != null)
+                {
+                    //все юзеры – читатели
+                    User.UserRole = User.Role.Reader;
+                    //
+                    await _userService.AddAsync(this.User);
+                    await GoToBooksPage();
+                }
+                else
+                    IsEntryEmpty = true;
+            }
         }
     }
 }

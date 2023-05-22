@@ -9,13 +9,9 @@ using library_manager.Application.Services;
 using library_manager.Domain.Abstractions;
 using library_manager.Application.Abstractions;
 using library_manager.ViewModel;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System;
 using System.Reflection;
 using CommunityToolkit.Maui;
 using library_manager.Pages;
-using library_manager.Domain.Entities.Users;
 
 namespace library_manager;
 
@@ -39,7 +35,7 @@ public static class MauiProgram
 		var a = Assembly.GetExecutingAssembly();
 		using var stream = a.GetManifestResourceStream(settingsStream);
 		builder.Configuration.AddJsonStream(stream);
-
+		
         setupServices(builder.Services);
         AddDbContext(builder);
 		SeedData(builder.Services);
@@ -60,16 +56,17 @@ public static class MauiProgram
 
 		//ViewModels
         services.AddSingleton<BooksViewModel>();
-        services.AddSingleton<BookDetailsViewModel>();
+        services.AddTransient<BookDetailsViewModel>();
         services.AddTransient<LoginViewModel>();
         services.AddTransient<SingUpViewModel>();
+		services.AddSingleton<AddBookViewModel>();
 
         //Pages
-        services.AddTransient<NewPage1>();
+        services.AddSingleton<NewPage1>();
 		services.AddTransient<BookDetails>();
-		services.AddTransient<LoginPage>();
-		services.AddTransient<SingUpPage>();
-
+		services.AddSingleton<LoginPage>();
+		services.AddSingleton<SingUpPage>();
+		services.AddSingleton<AddBookPage>();
 	}
 
     private static void AddDbContext(MauiAppBuilder builder)
@@ -103,13 +100,14 @@ public static class MauiProgram
 		//	new Book() { Id = 5, Name = "Gone with the wind", NumberOfBooks = 30 }
 		//};
 
-		//foreach(var book in books) 
+		//foreach (var book in books)
 		//{
 		//	await unitOfWork.BooksRepository.AddAsync(book);
 
 		//}
-		
-		//await unitOfWork.UsersRepository.AddAsync(new User() { UserName = "n", Password = "n" });
+
+		//await unitOfWork.UsersRepository.AddAsync(new User() { UserName = "Lera", Password = "1234",
+		//	UserRole = User.Role.Admin });
 		//await unitOfWork.SaveAllAsync();
 	}
 }

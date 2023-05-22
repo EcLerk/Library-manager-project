@@ -11,6 +11,7 @@ using library_manager.Domain.Entities;
 using library_manager.Application.Services;
 using System.Diagnostics;
 using library_manager.Pages;
+using Microsoft.Maui.Controls;
 
 namespace library_manager.ViewModel
 {
@@ -32,11 +33,16 @@ namespace library_manager.ViewModel
         public async void UpdateBookList() => await GetBooks();
 
         [RelayCommand]
-        async void ShowDetails(Book book) => await GoToDetailsPage(book);
+        public async void ShowDetails(Book book) => await GoToDetailsPage(book);
+
+        [RelayCommand]
+        public async void AddBook() => await GoToAddBookPage();
+        //[RelayCommand]
+        //public async void DeleteBook(int id) => await OnDeleteButtonClicked(id);
 
         public async Task GetBooks()
         {
-
+           
             var selectedBook = SelectedBook;
 
             try
@@ -74,6 +80,26 @@ namespace library_manager.ViewModel
             };
 
             await Shell.Current.GoToAsync(nameof(BookDetails), parameters);
+        }
+
+        private async Task GoToAddBookPage()
+        {
+            await Shell.Current.GoToAsync(nameof(AddBookPage));
+            //Microsoft.Maui.Controls.Application.Current.OpenWindow(new Window(new AddBookPage())
+            //{
+            //    Width = 700,
+            //    Height = 500 
+            //}) ;
+        }
+
+        [RelayCommand]
+        public async void DeleteBook(Book ob)
+        {
+            if (ob != null)
+            {
+                await _bookService.DeleteAsync(ob.Id);
+                UpdateBookList();
+            }
         }
     }
 }

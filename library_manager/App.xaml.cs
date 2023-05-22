@@ -1,11 +1,14 @@
-﻿namespace library_manager;
+﻿using Microsoft.Maui.Controls;
 
-public partial class App : IApplication
+namespace library_manager;
+
+public partial class App : Microsoft.Maui.Controls.Application
 {
 	public App()
 	{
 		InitializeComponent();
 
 		MainPage = new AppShell();
+		
 	}
 }
