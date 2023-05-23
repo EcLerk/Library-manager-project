@@ -11,9 +11,8 @@
              Title="">
 
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded"
+        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
                                         Command="{Binding UpdateBookListCommand}"/>
-
     </ContentPage.Behaviors>
 
     <!-- Меню -->

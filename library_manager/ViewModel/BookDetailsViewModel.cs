@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using library_manager.Application.Abstractions;
 using library_manager.Domain.Entities;
 using library_manager.Domain.Entities.Users;
+using library_manager.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,20 @@ namespace library_manager.ViewModel
                     HasOrderPermission = true;
                 }
             }
+        }
+
+        [RelayCommand]
+        public async Task GoToEditBookPage()
+        {
+            if (Book == null)
+                return;
+
+            IDictionary<string, object> parameters = new Dictionary<string, object>()
+            {
+                {"Book", Book }
+            };
+
+            await Shell.Current.GoToAsync(nameof(EditBookPage), parameters);
         }
     }
 }

@@ -48,6 +48,7 @@
                Grid.Row="1"/>
 
         <Button IsVisible="{Binding HasEditPermission}"
+                Command="{Binding GoToEditBookPageCommand}"
                 Text="Edit"
                 WidthRequest="200"
                 HeightRequest="10"

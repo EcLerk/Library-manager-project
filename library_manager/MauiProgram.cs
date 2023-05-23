@@ -60,6 +60,7 @@ public static class MauiProgram
         services.AddTransient<LoginViewModel>();
         services.AddTransient<SingUpViewModel>();
 		services.AddSingleton<AddBookViewModel>();
+		services.AddSingleton<EditBookViewModel>();
 
         //Pages
         services.AddSingleton<NewPage1>();
@@ -67,6 +68,7 @@ public static class MauiProgram
 		services.AddSingleton<LoginPage>();
 		services.AddSingleton<SingUpPage>();
 		services.AddSingleton<AddBookPage>();
+		services.AddSingleton<EditBookPage>();
 	}
 
     private static void AddDbContext(MauiAppBuilder builder)

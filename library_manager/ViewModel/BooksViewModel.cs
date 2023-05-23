@@ -93,11 +93,11 @@ namespace library_manager.ViewModel
         }
 
         [RelayCommand]
-        public async void DeleteBook(Book ob)
+        public async void DeleteBook(Book obj)
         {
-            if (ob != null)
+            if (obj != null)
             {
-                await _bookService.DeleteAsync(ob.Id);
+                await _bookService.DeleteAsync(obj.Id);
                 UpdateBookList();
             }
         }

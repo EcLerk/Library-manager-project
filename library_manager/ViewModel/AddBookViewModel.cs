@@ -20,7 +20,6 @@ namespace library_manager.ViewModel
 
         [ObservableProperty]
         string name;
-
         [ObservableProperty]
         string? description;
         [ObservableProperty]
