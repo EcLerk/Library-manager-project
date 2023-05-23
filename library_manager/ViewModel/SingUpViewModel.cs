@@ -45,7 +45,8 @@ namespace library_manager.ViewModel
             if (user != null)
                 IsExist = true;
             else
-            {
+            {//
+            //ПЕРЕДЕЛАТЬ ЮЗЕРА!!!!!!!
                 if (User.UserName != null && User.Password != null)
                 {
                     //все юзеры – читатели

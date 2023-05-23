@@ -16,6 +16,7 @@ namespace library_manager.ViewModel
     public partial class BookDetailsViewModel:ObservableObject
     {
         private readonly IUserService _userService;
+        private readonly IOrderService _orderService;
 
         [ObservableProperty]
         Book book;
@@ -28,11 +29,16 @@ namespace library_manager.ViewModel
         [ObservableProperty]
         bool hasOrderPermission;
 
-        public BookDetailsViewModel(IUserService userService)
+        [RelayCommand]
+        public async void AddOrder() => await OnOrderButtonClicked();
+
+        public BookDetailsViewModel(IUserService userService, IOrderService orderService)
         {
             _userService = userService;
+            _orderService = orderService;
+
             hasEditPermission = false;
-            hasOrderPermission = false;
+            hasOrderPermission = false;        
         }
 
         [RelayCommand]
@@ -66,6 +72,17 @@ namespace library_manager.ViewModel
             };
 
             await Shell.Current.GoToAsync(nameof(EditBookPage), parameters);
+        }
+
+        
+        private async Task OnOrderButtonClicked()
+        {
+            await _orderService.AddAsync(new Order
+            {
+                BookId = this.Book.Id,
+                UserId = _userService.CurrentUser.Id,
+                orderDate = DateTime.Now
+            });
         }
     }
 }

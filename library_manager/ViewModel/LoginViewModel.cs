@@ -56,8 +56,20 @@ namespace library_manager.ViewModel
 
         private async Task OnLoginButtonClicked()
         {
-            var checkUser = await _userService.GetByNameAsync(Name);
+            var user = await _userService.GetByNameAsync(Name);
+            bool isUser = CheckUser(user);
 
+            if (isUser) 
+            {
+                if (user.UserRole == User.Role.Admin)
+                    await Shell.Current.GoToAsync("//" + nameof(NewPage1));
+                else if(user.UserRole == User.Role.Reader)
+                    await Shell.Current.GoToAsync("//" + nameof(UsersBookPage));
+            }
+        }
+
+        private bool CheckUser(User checkUser)
+        {
             if (checkUser == null)
                 IsExist = true;
             else
@@ -65,13 +77,14 @@ namespace library_manager.ViewModel
                 if (checkUser.Password == Password)
                 {
                     _userService.CurrentUser = checkUser;
-                    await GoToBooksPage();
+                    return true;
                 }
                 else
-                    IsExist = true;
+                    IsExist = true;                  
+                
             }
-        }
 
-        
+            return false;
+        }
     }
 }

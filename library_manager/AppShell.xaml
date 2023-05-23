@@ -22,4 +22,9 @@
         Route="NewPage1"
         />
 
+    <ShellContent
+        Title="UsersBook"
+        ContentTemplate="{DataTemplate pages:UsersBookPage}"
+        Route="UsersBookPage"/>
+
 </Shell>

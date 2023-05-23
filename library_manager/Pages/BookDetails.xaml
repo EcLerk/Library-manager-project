@@ -59,6 +59,7 @@
                 Grid.Row="2"/>
 
         <Button IsVisible="{Binding HasOrderPermission}"
+                Command="{Binding AddOrderCommand}"
                 Text="Order"
                 WidthRequest="200"
                 HeightRequest="10"

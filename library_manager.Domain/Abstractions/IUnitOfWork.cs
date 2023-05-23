@@ -12,6 +12,7 @@ namespace library_manager.Domain.Abstractions
     {
         IRepository<Book> BooksRepository { get; }
         IRepository<User> UsersRepository { get; }
+        IRepository<Order> OrdersRepository { get; }
         public Task RemoveDatabaseAsync();
         public Task CreateDatabaseAsync();
         public Task SaveAllAsync();

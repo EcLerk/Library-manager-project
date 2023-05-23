@@ -15,6 +15,7 @@ namespace library_manager.Persistance.Repository
         private readonly LibraryDbContext _context;
         private readonly Lazy<IRepository<Book>> _booksRepository;
         private readonly Lazy<IRepository<User>> _usersRepository;
+        private readonly Lazy<IRepository<Order>> _ordersRepository;
 
 
         public EFUnitOfWork(LibraryDbContext context)
@@ -22,10 +23,12 @@ namespace library_manager.Persistance.Repository
             _context = context;
             _booksRepository= new Lazy<IRepository<Book>>(()=> new EFRepository<Book>(context));
             _usersRepository= new Lazy<IRepository<User>>(()=> new EFRepository<User>(context));
+            _ordersRepository= new Lazy<IRepository<Order>>(()=> new EFRepository<Order>(context));
         }
 
         IRepository<Book> IUnitOfWork.BooksRepository => _booksRepository.Value;
         IRepository<User> IUnitOfWork.UsersRepository => _usersRepository.Value;
+        IRepository<Order> IUnitOfWork.OrdersRepository => _ordersRepository.Value;
 
         public async Task CreateDatabaseAsync()
         {

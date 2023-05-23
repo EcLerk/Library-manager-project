@@ -53,6 +53,7 @@ public static class MauiProgram
 		services.AddSingleton<IUnitOfWork, EFUnitOfWork>();
 		services.AddSingleton<IBookService, BookService>();
 		services.AddSingleton<IUserService, UserService>();
+		services.AddSingleton<IOrderService, OrderService>();
 
 		//ViewModels
         services.AddSingleton<BooksViewModel>();
@@ -61,14 +62,17 @@ public static class MauiProgram
         services.AddTransient<SingUpViewModel>();
 		services.AddSingleton<AddBookViewModel>();
 		services.AddSingleton<EditBookViewModel>();
+		services.AddSingleton<UserOrdersPage>();
 
         //Pages
         services.AddSingleton<NewPage1>();
+		services.AddSingleton<UsersBookPage>();
 		services.AddTransient<BookDetails>();
 		services.AddTransient<LoginPage>();
 		services.AddTransient<SingUpPage>();
 		services.AddSingleton<AddBookPage>();
 		services.AddSingleton<EditBookPage>();
+		services.AddTransient<UserOrdersPage>();
 	}
 
     private static void AddDbContext(MauiAppBuilder builder)

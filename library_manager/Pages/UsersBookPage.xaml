@@ -2,14 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:models="clr-namespace:library_manager.ViewModel"
              xmlns:entities="clr-namespace:library_manager.Domain.Entities;assembly=library_manager.Domain"
-             Shell.NavBarIsVisible="True"
-             x:Name="this"
+             xmlns:models="clr-namespace:library_manager.ViewModel"
              x:DataType="models:BooksViewModel"
-             x:Class="library_manager.Pages.NewPage1"
+             x:Class="library_manager.Pages.UsersBookPage"
+             x:Name="this"
              Title="">
-
+    
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="NavigatedTo"
                                         Command="{Binding UpdateBookListCommand}"/>
@@ -19,14 +18,10 @@
     <ContentPage.MenuBarItems>
         <MenuBarItem Text="Menu"
                      BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}">
-            
-            <MenuFlyoutSubItem Text="Edit">
-                <MenuFlyoutItem Text="Add book"
-                                Command="{Binding AddBookCommand}"/>
-            </MenuFlyoutSubItem>
+
             <MenuFlyoutItem Text="My Profile"/>
-                            <!--Command="{Binding}"-->
-            <MenuFlyoutItem Text="Orders"/>
+            <!--Command="{Binding}"-->
+            <MenuFlyoutItem Text="My Orders"/>
             <MenuFlyoutItem Text="LogOut"
                             Command="{Binding LogOutCommand}"/>
         </MenuBarItem>
@@ -56,7 +51,7 @@
                    FontSize="16"
                    BackgroundColor="{x:StaticResource Secondary}"
                    Grid.Column="2"/>
-            
+
         </Grid>
 
         <CollectionView x:Name="BooksCollectionView"
@@ -64,10 +59,7 @@
                         SelectedItem="{Binding SelectedBook}"
                         SelectionMode="Single"
                         
-                        HeightRequest="370">
-            <!--x:Name="ItemsCollectionView"-->
-                        <!--SelectionChangedCommand="{Binding ShowDetailsCommand}"
-                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference ItemsCollectionView}}"-->
+                        HeightRequest="400">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="entities:Book">
@@ -79,32 +71,20 @@
                                                   CommandParameter="{Binding .}"
                                                   NumberOfTapsRequired="2"/>
                         </Grid.GestureRecognizers>
-                        
+
                         <Border Stroke="LightGray" BackgroundColor="White"
                                 >
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="5" />
                             </Border.StrokeShape>
 
-                            
-                            <!--Всплывающее меню при нажатии на правую кнопку мыши-->
-                            <!--<FlyoutBase.ContextFlyout>
-                                <MenuFlyout BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}">
-                                    <MenuFlyoutItem Text="delete"
-                                                    Command="{Binding Source={RelativeSource 
-                                        AncestorType={x:Type models:BooksViewModel}}, Path=DeleteBookCommand}"
-                                                    CommandParameter="{Binding Source ={x:Reference BooksCollectionView},Path=SelectedItem}"/>
-                                </MenuFlyout>
-                            </FlyoutBase.ContextFlyout>-->
-                            <!---->
-                            
                             <Grid ColumnDefinitions="*,*,*" Padding="20" >
                                 <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                                    x:Name="IdLabel"
                                    Text="{Binding Id}"
                                    FontSize="12"  
                                    Grid.Column="0"/>
-                                
+
                                 <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                                    x:Name="NameLabel"
                                    Text="{Binding Name}"
@@ -115,21 +95,14 @@
                                    Text="{Binding NumberOfBooks}"
                                    FontSize="12" 
                                    Grid.Column="2"/>
-                                
-                            </Grid>    
-                           
 
-                            
+                            </Grid>
+
                         </Border>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-        <Button Margin="15"
-                Text="Delete"
-                HorizontalOptions="End"
-                Command="{Binding DeleteBookCommand}"
-                CommandParameter="{Binding Source ={x:Reference BooksCollectionView},Path=SelectedItem}"/>
+        
     </VerticalStackLayout>
 </ContentPage>

@@ -13,6 +13,7 @@ namespace library_manager.Persistance.Data
     {
         public DbSet<Book> Books { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Order> Orders { get; set; } = null!;
         public LibraryDbContext(DbContextOptions<LibraryDbContext> options)
             : base(options)
         { }
