@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:library_manager.ValueConverters"
              xmlns:models="clr-namespace:library_manager.ViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="models:BookDetailsViewModel"
              x:Class="library_manager.Pages.BookDetails"
              Title="BookDetails">
 
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding CheckPermissionsCommand}"/>
+    </ContentPage.Behaviors>
     <!--Создание объекта imageConverter и добавление его в словарь ресурсов-->
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -14,7 +19,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*">
+    
+    <Grid RowDefinitions="0.2*,0.5*,0.3*" ColumnDefinitions="0.4*,0.6*"
+          WidthRequest="900">
         <Image Source="{Binding Book.Id,
                Converter={StaticResource imageConverter}}"
                Aspect="AspectFit"
@@ -30,5 +37,34 @@
             
             Grid.Column="1"
             Grid.Row="0"/>
+
+        <Label Text="{Binding Book.Description}"
+               FontSize="16"
+               
+               VerticalOptions="Start" 
+               HorizontalOptions="Start"
+               
+               Grid.Column="1"
+               Grid.Row="1"/>
+
+        <Button IsVisible="{Binding HasEditPermission}"
+                Text="Edit"
+                WidthRequest="200"
+                HeightRequest="10"
+                VerticalOptions="Start"
+                Margin="10"
+                
+                Grid.Column="0"
+                Grid.Row="2"/>
+
+        <Button IsVisible="{Binding HasOrderPermission}"
+                Text="Order"
+                WidthRequest="200"
+                HeightRequest="10"
+                VerticalOptions="Start"
+                Margin="10"
+                
+                Grid.Column="0"
+                Grid.Row="2"/>
     </Grid>
 </ContentPage>

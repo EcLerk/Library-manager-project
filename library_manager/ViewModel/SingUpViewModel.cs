@@ -51,6 +51,7 @@ namespace library_manager.ViewModel
                     //все юзеры – читатели
                     User.UserRole = User.Role.Reader;
                     //
+                    _userService.CurrentUser = User;
                     await _userService.AddAsync(this.User);
                     await GoToBooksPage();
                 }

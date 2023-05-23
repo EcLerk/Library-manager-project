@@ -5,6 +5,7 @@ using library_manager.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,13 @@ namespace library_manager.Application.Services
     public class UserService : IUserService
     {
         IUnitOfWork _unitOfWork;
+
+        private User _user;
+        public User CurrentUser 
+        { 
+            get { return _user; }
+            set { _user = value; } }
+
         public UserService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

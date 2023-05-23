@@ -17,7 +17,7 @@ namespace library_manager.Domain.Entities.Users
         [Column(TypeName ="Role")]
         public Role UserRole { get; set; }
 
-        Dictionary<Role, List<Permissions>> roles = new Dictionary<Role, List<Permissions>>()
+        public Dictionary<Role, List<Permissions>> roles = new Dictionary<Role, List<Permissions>>()
         {
             {Role.Admin, new List<Permissions>{ Permissions.edit, Permissions.add, Permissions.delete} },
             {Role.Reader, new List<Permissions>{ Permissions.order} }
@@ -29,7 +29,7 @@ namespace library_manager.Domain.Entities.Users
             Reader
         }
 
-        enum Permissions
+        public enum Permissions
         {
             edit,
             add,

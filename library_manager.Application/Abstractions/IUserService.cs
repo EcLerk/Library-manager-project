@@ -10,6 +10,7 @@ namespace library_manager.Application.Abstractions
 {
     public interface IUserService:IBaseService<User>
     {
+        public User CurrentUser { get; set; }
         public Task<User> GetByNameAsync(string name);
     }
 }

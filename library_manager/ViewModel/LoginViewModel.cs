@@ -54,7 +54,10 @@ namespace library_manager.ViewModel
             else
             {
                 if (checkUser.Password == User.Password)
+                {
+                    _userService.CurrentUser = checkUser;
                     await GoToBooksPage();
+                }
                 else
                     IsExist = true;
             }
