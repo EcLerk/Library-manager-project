@@ -65,8 +65,8 @@ public static class MauiProgram
         //Pages
         services.AddSingleton<NewPage1>();
 		services.AddTransient<BookDetails>();
-		services.AddSingleton<LoginPage>();
-		services.AddSingleton<SingUpPage>();
+		services.AddTransient<LoginPage>();
+		services.AddTransient<SingUpPage>();
 		services.AddSingleton<AddBookPage>();
 		services.AddSingleton<EditBookPage>();
 	}

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:library_manager.ViewModel"
              x:DataType="models:AddBookViewModel"
              x:Class="library_manager.Pages.AddBookPage"
              Title="AddBookPage">
 
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
+                                        Command="{Binding LoadPageCommand}"/>
+    </ContentPage.Behaviors>
     <VerticalStackLayout WidthRequest="700">
         <Grid ColumnDefinitions="0.3*, 0.7*" RowDefinitions="*,*,*,*">
             
@@ -13,7 +18,7 @@
                    Grid.Row="0"
                    Grid.Column="0"/>
 
-            <Entry Text="{Binding Name, Mode=OneWayToSource}"
+            <Entry Text="{Binding Name, Mode=TwoWay}"
                    Grid.Row="0"
                    Grid.Column="1"/>
 
@@ -21,7 +26,7 @@
                    Grid.Row="1"
                    Grid.Column="0"/>
 
-            <Entry Text="{Binding Description, Mode=OneWayToSource}"
+            <Entry Text="{Binding Description, Mode=TwoWay}"
                    Grid.Row="1"
                    Grid.Column="1"/>
 
@@ -29,7 +34,7 @@
                    Grid.Row="2"
                    Grid.Column="0"/>
 
-            <Entry Text="{Binding NumberOfBooks, Mode=OneWayToSource}"
+            <Entry Text="{Binding NumberOfBooks, Mode=TwoWay}"
                    Grid.Row="2"
                    Grid.Column="1"/>
 
@@ -37,7 +42,7 @@
                    Grid.Row="3"
                    Grid.Column="0"/>
 
-            <Entry Text="{Binding Year, Mode=OneWayToSource}"
+            <Entry Text="{Binding Year, Mode=TwoWay}"
                    Grid.Row="3"
                    Grid.Column="1"/>
             

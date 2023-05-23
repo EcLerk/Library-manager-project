@@ -17,14 +17,22 @@ namespace library_manager.ViewModel
         private readonly IUserService _userService;
 
         [ObservableProperty]
-        User user;
+        string name;
+        [ObservableProperty]
+        string password;
         [ObservableProperty]
         bool isExist = false;
 
         public LoginViewModel(IUserService userService)
         {
             _userService = userService;
-            user = new User();
+        }
+
+        [RelayCommand]
+        void SomeMethod()
+        {
+            Name = String.Empty;
+            Password = String.Empty;
         }
 
         [RelayCommand]
@@ -34,6 +42,7 @@ namespace library_manager.ViewModel
 
         [RelayCommand]
         async Task UserLogin() => await OnLoginButtonClicked();
+
 
         private async Task GoToBooksPage()
         {
@@ -47,13 +56,13 @@ namespace library_manager.ViewModel
 
         private async Task OnLoginButtonClicked()
         {
-            var checkUser = await _userService.GetByNameAsync(User.UserName);
+            var checkUser = await _userService.GetByNameAsync(Name);
 
             if (checkUser == null)
                 IsExist = true;
             else
             {
-                if (checkUser.Password == User.Password)
+                if (checkUser.Password == Password)
                 {
                     _userService.CurrentUser = checkUser;
                     await GoToBooksPage();

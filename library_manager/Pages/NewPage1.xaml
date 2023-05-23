@@ -26,8 +26,8 @@
             </MenuFlyoutSubItem>
             <MenuFlyoutItem Text="My Profile"/>
                             <!--Command="{Binding}"-->
-            <MenuFlyoutItem Text="LogOut"/>
-                            <!--Command="{Binding}"-->
+            <MenuFlyoutItem Text="LogOut"
+                            Command="{Binding LogOutCommand}"/>
         </MenuBarItem>
     </ContentPage.MenuBarItems>
     <!---->

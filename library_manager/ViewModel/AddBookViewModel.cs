@@ -28,6 +28,15 @@ namespace library_manager.ViewModel
         string? year;
 
         [RelayCommand]
+        private void LoadPage()
+        {
+            Name= string.Empty;
+            Description= string.Empty;
+            NumberOfBooks= string.Empty;
+            Year= string.Empty;
+        }
+
+        [RelayCommand]
         private async Task OnSaveButtonClicked()
         {
             await _bookService.AddAsync(new Book() 

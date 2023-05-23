@@ -18,10 +18,12 @@ namespace library_manager.ViewModel
     public partial class BooksViewModel: ObservableObject
     {
         private readonly IBookService _bookService;
+        private readonly IUserService _userService;
 
-        public BooksViewModel(IBookService bookService)
+        public BooksViewModel(IBookService bookService, IUserService userService)
         {
             _bookService = bookService;
+            _userService = userService;
         }
 
         public ObservableCollection<Book> Books { get; set; } = new();
@@ -93,13 +95,20 @@ namespace library_manager.ViewModel
         }
 
         [RelayCommand]
-        public async void DeleteBook(Book obj)
+        public async void DeleteBook(Book book)
         {
-            if (obj != null)
+            if (book != null)
             {
-                await _bookService.DeleteAsync(obj.Id);
+                await _bookService.DeleteAsync(book.Id);
                 UpdateBookList();
             }
+        }
+
+        [RelayCommand]
+        public async Task LogOut()
+        {
+            _userService.CurrentUser = null;
+            await Shell.Current.GoToAsync("//" + nameof(LoginPage));
         }
     }
 }
