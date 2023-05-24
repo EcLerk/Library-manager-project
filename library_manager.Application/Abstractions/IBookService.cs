@@ -10,6 +10,6 @@ namespace library_manager.Application.Abstractions
 {
     public interface IBookService: IBaseService<Book>
     {
-        //public Task<Book> GetByNameAsync(string name);
+        public Task<Book> GetByNameAsync(string name);
     }
 }

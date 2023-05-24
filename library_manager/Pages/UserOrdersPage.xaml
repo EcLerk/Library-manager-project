@@ -10,7 +10,7 @@
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="NavigatedTo"
-                                        Command="{Binding UpdateOrdersListCommand}"/>
+                                        Command="{Binding UpdateUserOrdersListCommand}"/>
     </ContentPage.Behaviors>
     <VerticalStackLayout>
         <CollectionView ItemsSource="{Binding Orders}">
@@ -40,7 +40,7 @@
 
                                 <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                                    x:Name="NameLabel"
-                                   Text="{Binding orderDate}"
+                                   Text="{Binding OrderDate}"
                                    FontSize="16"
                                    Grid.Column="1"/>
                             </Grid>

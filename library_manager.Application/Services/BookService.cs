@@ -48,5 +48,10 @@ namespace library_manager.Application.Services
             await _unitOfWork.BooksRepository.UpdateAsync(entity);
             return entity;
         }
+
+        public async Task<Book> GetByNameAsync(string name)
+        {
+            return await _unitOfWork.BooksRepository.FirstOrDefaultAsync(x => x.Name == name);
+        }
     }
 }

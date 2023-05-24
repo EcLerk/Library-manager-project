@@ -12,6 +12,7 @@ using library_manager.ViewModel;
 using System.Reflection;
 using CommunityToolkit.Maui;
 using library_manager.Pages;
+using library_manager.Domain.Entities.Users;
 
 namespace library_manager;
 
@@ -54,6 +55,7 @@ public static class MauiProgram
 		services.AddSingleton<IBookService, BookService>();
 		services.AddSingleton<IUserService, UserService>();
 		services.AddSingleton<IOrderService, OrderService>();
+		services.AddSingleton<ILoanService, LoanService>();
 
 		//ViewModels
         services.AddSingleton<BooksViewModel>();
@@ -73,6 +75,7 @@ public static class MauiProgram
 		services.AddSingleton<AddBookPage>();
 		services.AddSingleton<EditBookPage>();
 		services.AddTransient<UserOrdersPage>();
+		services.AddTransient<AdminOrdersPage>();
 	}
 
     private static void AddDbContext(MauiAppBuilder builder)
@@ -97,23 +100,27 @@ public static class MauiProgram
 
 		//var bookList = unitOfWork.BooksRepository.ListAllAsync();
 
-		//IReadOnlyList<Book> books = new List<Book>()
-		//{
-		//	new Book() { Id = 1, Name = "War and Peace", NumberOfBooks = 1 },
-		//	new Book() { Id = 2, Name = "1984", NumberOfBooks = 10 },
-		//	new Book() { Id = 3, Name = "Pride and Prejudice", NumberOfBooks = 3 },
-		//	new Book() { Id = 4, Name = "The Great Gatsby", NumberOfBooks = 5 },
-		//	new Book() { Id = 5, Name = "Gone with the wind", NumberOfBooks = 30 }
-		//};
+	//	IReadOnlyList<Book> books = new List<Book>()
+	//	{
+	//		new Book() { Id = 1, Name = "War and Peace", NumberOfBooks = 1 },
+	//		new Book() { Id = 2, Name = "1984", NumberOfBooks = 10 },
+	//		new Book() { Id = 3, Name = "Pride and Prejudice", NumberOfBooks = 3 },
+	//		new Book() { Id = 4, Name = "The Great Gatsby", NumberOfBooks = 5 },
+	//		new Book() { Id = 5, Name = "Gone with the wind", NumberOfBooks = 30 }
+	//	};
 
-		//foreach (var book in books)
-		//{
-		//	await unitOfWork.BooksRepository.AddAsync(book);
+	//	foreach (var book in books)
+	//	{
+	//		await unitOfWork.BooksRepository.AddAsync(book);
 
-		//}
+	//	}
 
-		//await unitOfWork.UsersRepository.AddAsync(new User() { UserName = "Lera", Password = "1234",
-		//	UserRole = User.Role.Admin });
-		//await unitOfWork.SaveAllAsync();
+	//	await unitOfWork.UsersRepository.AddAsync(new User()
+	//	{
+	//		UserName = "Lera",
+	//		Password = "1234",
+	//		UserRole = User.Role.Admin
+	//	});
+	//	await unitOfWork.SaveAllAsync();
 	}
 }

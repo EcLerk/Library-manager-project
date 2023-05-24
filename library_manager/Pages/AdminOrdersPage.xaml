@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:entities="clr-namespace:library_manager.Domain.Entities;assembly=library_manager.Domain"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:library_manager.ViewModel"
+             x:DataType="models:UserOrdersViewModel"
+             x:Class="library_manager.Pages.AdminOrdersPage"
+             Title="AdminOrdersPage">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
+                                        Command="{Binding UpdateAllCommand}"/>
+    </ContentPage.Behaviors>
+    
+    
+    <Grid ColumnDefinitions="*,*" Margin="20"
+          ColumnSpacing="20">
+        <VerticalStackLayout Grid.Column="0" HeightRequest="400"
+                             VerticalOptions="Start"
+                             BackgroundColor="Lavender">
+            <Grid ColumnDefinitions="*,*,*">
+                <Label Text="Book"
+                       WidthRequest="200"
+                   BackgroundColor="{x:StaticResource Secondary}"
+                   
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Grid.Column="0"/>
+
+                <Label Text="User"
+                       WidthRequest="200"
+                   BackgroundColor="Lavender"
+                   
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Grid.Column="1"/>
+
+                <Label Text="Date"
+                       WidthRequest="200"
+                   BackgroundColor="{x:StaticResource Secondary}"
+                   
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Grid.Column="2"/>
+            </Grid>
+
+            <CollectionView x:Name="OrdersCollectionView"
+                            ItemsSource="{Binding Orders}"
+                            SelectedItem="{Binding SelectedOrder}"
+                            SelectionMode="Single"
+                            HeightRequest="300">
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="entities:Order">
+                        <Grid  Padding="5" >
+
+                            <Border Stroke="LightGray" BackgroundColor="White">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+
+                                <Grid ColumnDefinitions="*,*,*" Padding="20" >
+                                    <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                   Text="{Binding BookName}"
+                                   FontSize="14"  
+                                   Grid.Column="0"/>
+
+                                    <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                   Text="{Binding UserName}"
+                                   FontSize="14"  
+                                   Grid.Column="1"/>
+
+                                    <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                   Text="{Binding OrderDate}"
+                                   FontSize="14"
+                                   Grid.Column="2"/>
+                                </Grid>
+
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Lended"
+                    Command="{Binding LendedCommand}"
+                    CommandParameter="{Binding Source ={x:Reference OrdersCollectionView},Path=SelectedItem}"
+                    
+                    WidthRequest="100"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Margin="15"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Column="1" HeightRequest="400"
+                             VerticalOptions="Start"
+                             BackgroundColor="Lavender">
+            <Grid ColumnDefinitions="*,*,*">
+                <Label Text="Book"
+                       WidthRequest="200"
+                   BackgroundColor="{x:StaticResource Secondary}"
+                   
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Grid.Column="0"/>
+
+                <Label Text="User"
+                       WidthRequest="200"
+                   BackgroundColor="Lavender"
+                   
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Grid.Column="1"/>
+
+                <Label Text="Date"
+                       WidthRequest="200"
+                   BackgroundColor="{x:StaticResource Secondary}"
+                   
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Grid.Column="2"/>
+            </Grid>
+
+            <CollectionView x:Name="LoansCollectionView"
+                            ItemsSource="{Binding Loans}"
+                            SelectedItem="{Binding SelectedLoan}"
+                            SelectionMode="Single"
+                            HeightRequest="300">
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="entities:Loan">
+                        <Grid  Padding="5" >
+
+                            <Border Stroke="LightGray" BackgroundColor="White">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+
+                                <Grid ColumnDefinitions="*,*,*" Padding="20" >
+                                    <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                   Text="{Binding BookName}"
+                                   FontSize="14"  
+                                   Grid.Column="0"/>
+
+                                    <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                   Text="{Binding UserName}"
+                                   FontSize="14"  
+                                   Grid.Column="1"/>
+
+                                    <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                   Text="{Binding LoanDate}"
+                                   FontSize="14"
+                                   Grid.Column="2"/>
+                                </Grid>
+
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Returned"
+                    Command="{Binding BookReturnedCommand}"
+                    CommandParameter="{Binding Source ={x:Reference LoansCollectionView},Path=SelectedItem}"
+                    
+                    WidthRequest="100"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Margin="15"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:library_manager.ViewModel"
              x:DataType="models:EditBookViewModel"
              x:Class="library_manager.Pages.EditBookPage"
              Title="EditBookPage">
+    
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
+                                        Command="{Binding PageLoadedCommand}"/>
+    </ContentPage.Behaviors>
     
     <VerticalStackLayout>
         <VerticalStackLayout WidthRequest="700">
@@ -14,7 +20,7 @@
                    Grid.Row="0"
                    Grid.Column="0"/>
 
-                <Entry Text="{Binding Book.Name, Mode=TwoWay}"
+                <Entry Text="{Binding Name, Mode=TwoWay}"
                    Grid.Row="0"
                    Grid.Column="1"/>
 
@@ -22,7 +28,7 @@
                    Grid.Row="1"
                    Grid.Column="0"/>
 
-                <Entry Text="{Binding Book.Description, Mode=TwoWay}"
+                <Entry Text="{Binding Description, Mode=TwoWay}"
                    Grid.Row="1"
                    Grid.Column="1"/>
 
@@ -30,7 +36,7 @@
                    Grid.Row="2"
                    Grid.Column="0"/>
 
-                <Entry Text="{Binding Book.NumberOfBooks, Mode=TwoWay}"
+                <Entry Text="{Binding NumberOfBooks, Mode=TwoWay}"
                    Grid.Row="2"
                    Grid.Column="1"/>
 
@@ -38,7 +44,7 @@
                    Grid.Row="3"
                    Grid.Column="0"/>
 
-                <Entry Text="{Binding Book.Year, Mode=TwoWay}"
+                <Entry Text="{Binding Year, Mode=TwoWay}"
                    Grid.Row="3"
                    Grid.Column="1"/>
 

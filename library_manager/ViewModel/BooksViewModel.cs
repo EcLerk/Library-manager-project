@@ -12,6 +12,7 @@ using library_manager.Application.Services;
 using System.Diagnostics;
 using library_manager.Pages;
 using Microsoft.Maui.Controls;
+using library_manager.Domain.Entities.Users;
 
 namespace library_manager.ViewModel
 {
@@ -42,6 +43,7 @@ namespace library_manager.ViewModel
 
         [RelayCommand]
         public async void ShowOrders() => await GoToOrdersPage();
+
         //[RelayCommand]
         //public async void DeleteBook(int id) => await OnDeleteButtonClicked(id);
 
@@ -117,7 +119,10 @@ namespace library_manager.ViewModel
         
         private async Task GoToOrdersPage()
         {
-            await Shell.Current.GoToAsync(nameof(UserOrdersPage));
+            if (_userService.CurrentUser.UserRole == User.Role.Reader)
+                await Shell.Current.GoToAsync(nameof(UserOrdersPage));
+            else if (_userService.CurrentUser.UserRole == User.Role.Admin)
+                await Shell.Current.GoToAsync(nameof(AdminOrdersPage));
         }
     }
 }

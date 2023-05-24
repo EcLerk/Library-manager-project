@@ -44,9 +44,9 @@ namespace library_manager.Application.Services
             return await _unitOfWork.OrdersRepository.GetByIdAsync(id);
         }
 
-        public async Task<IEnumerable<Order>> GetOrdersByUserId(int id)
+        public async Task<IEnumerable<Order>> GetOrdersByUserName(string name)
         {
-            return await _unitOfWork.OrdersRepository.ListAsync(order => order.UserId == id);
+            return await _unitOfWork.OrdersRepository.ListAsync(order => order.UserName == name);
         }
 
         public async Task<Order> UpdateAsync(Order entity)

@@ -39,10 +39,32 @@ namespace library_manager.ViewModel
         [RelayCommand]
         private async Task OnSaveButtonClicked()
         {
-            await _bookService.AddAsync(new Book() 
-            {Name = Name, Description = Description,
-            NumberOfBooks = Convert.ToInt32(NumberOfBooks), Year = Convert.ToInt32(Year)});
+            Book book = new Book();
 
+            book.Name = Name;
+            book.Description = Description;
+
+            bool result = int.TryParse(NumberOfBooks, out int number);
+            if (result) 
+                book.NumberOfBooks = number;
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Incorrect Input",
+                    "Number of books field entered incorrectly", "Cancel");
+                return;
+            }
+
+            result = int.TryParse(Year, out number);
+            if (result)
+                book.Year = number;
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Incorrect Input",
+                    "Year field entered incorrectly", "Cancel");
+                return;
+            }
+
+            await _bookService.AddAsync(book);
             await Shell.Current.GoToAsync("..");
         }
     }

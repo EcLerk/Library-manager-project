@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace library_manager.Domain.Entities
 {
-    public class Order:Entity
+    public class Loan:Entity
     {
+        public DateOnly LoanDate { get; set; }
+
         public string BookName { get; set; }
         public string UserName { get; set; }
-        public DateOnly OrderDate { get; set; }//DateOnly
     }
 }
