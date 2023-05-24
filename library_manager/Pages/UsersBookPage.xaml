@@ -21,7 +21,8 @@
 
             <MenuFlyoutItem Text="My Profile"/>
             <!--Command="{Binding}"-->
-            <MenuFlyoutItem Text="My Orders"/>
+            <MenuFlyoutItem Text="My Orders"
+                            Command="{Binding ShowOrdersCommand}"/>
             <MenuFlyoutItem Text="LogOut"
                             Command="{Binding LogOutCommand}"/>
         </MenuBarItem>

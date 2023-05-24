@@ -39,6 +39,9 @@ namespace library_manager.ViewModel
 
         [RelayCommand]
         public async void AddBook() => await GoToAddBookPage();
+
+        [RelayCommand]
+        public async void ShowOrders() => await GoToOrdersPage();
         //[RelayCommand]
         //public async void DeleteBook(int id) => await OnDeleteButtonClicked(id);
 
@@ -109,6 +112,12 @@ namespace library_manager.ViewModel
         {
             _userService.CurrentUser = null;
             await Shell.Current.GoToAsync("//" + nameof(LoginPage));
+        }
+
+        
+        private async Task GoToOrdersPage()
+        {
+            await Shell.Current.GoToAsync(nameof(UserOrdersPage));
         }
     }
 }

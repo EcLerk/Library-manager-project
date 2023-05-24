@@ -1,4 +1,5 @@
 ﻿using library_manager.Domain.Entities;
+using library_manager.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace library_manager.Application.Abstractions
 {
     public interface IOrderService: IBaseService<Order>
     {
+        public Task<IEnumerable<Order>> GetOrdersByUserId(int id);
     }
 }

@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:entities="clr-namespace:library_manager.Domain.Entities;assembly=library_manager.Domain"
+             xmlns:models="clr-namespace:library_manager.ViewModel"
+             x:DataType="models:UserOrdersViewModel"
              x:Class="library_manager.Pages.UserOrdersPage"
              Title="UserOrdersPage">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
+                                        Command="{Binding UpdateOrdersListCommand}"/>
+    </ContentPage.Behaviors>
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <CollectionView ItemsSource="{Binding Orders}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="entities:Order">
+                    <Grid  Padding="5" >
+
+                        <!--<Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource 
+                                AncestorType={x:Type models:BooksViewModel}}, Path=ShowDetailsCommand}"
+                                                  CommandParameter="{Binding .}"
+                                                  NumberOfTapsRequired="2"/>
+                        </Grid.GestureRecognizers>-->
+
+                        <Border Stroke="LightGray" BackgroundColor="White"
+                                >
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+
+                            <Grid ColumnDefinitions="*,*" Padding="20" >
+                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                   x:Name="IdLabel"
+                                   Text="{Binding BookName}"
+                                   FontSize="12"  
+                                   Grid.Column="0"/>
+
+                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                   x:Name="NameLabel"
+                                   Text="{Binding orderDate}"
+                                   FontSize="16"
+                                   Grid.Column="1"/>
+                            </Grid>
+
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>

@@ -79,9 +79,9 @@ namespace library_manager.ViewModel
         {
             await _orderService.AddAsync(new Order
             {
-                BookId = this.Book.Id,
+                BookName = this.book.Name,
                 UserId = _userService.CurrentUser.Id,
-                orderDate = DateTime.Now
+                orderDate = DateOnly.FromDateTime(DateTime.Now)
             });
         }
     }

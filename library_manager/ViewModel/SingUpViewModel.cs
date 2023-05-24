@@ -33,7 +33,7 @@ namespace library_manager.ViewModel
 
         private async Task GoToBooksPage()
         {
-            await Shell.Current.GoToAsync("//" + nameof(NewPage1));
+            await Shell.Current.GoToAsync("//" + nameof(UsersBookPage));
         }
 
         [RelayCommand]

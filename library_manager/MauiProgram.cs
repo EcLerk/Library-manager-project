@@ -62,7 +62,7 @@ public static class MauiProgram
         services.AddTransient<SingUpViewModel>();
 		services.AddSingleton<AddBookViewModel>();
 		services.AddSingleton<EditBookViewModel>();
-		services.AddSingleton<UserOrdersPage>();
+		services.AddSingleton<UserOrdersViewModel>();
 
         //Pages
         services.AddSingleton<NewPage1>();

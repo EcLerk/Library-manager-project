@@ -8,8 +8,8 @@ namespace library_manager.Domain.Entities
 {
     public class Order:Entity
     {
-        public int BookId { get; set; }
+        public string BookName { get; set; }
         public int UserId { get; set; }
-        public DateTime orderDate { get; set; }
+        public DateOnly orderDate { get; set; }//DateOnly
     }
 }
