@@ -7,8 +7,8 @@ The automated library management system provides the ability to automate process
 #### The development was carried out using .NET MAUI  
 
 ## Content
-- [Documentation](Documentation)
-- [Developers](Developers)
+- [Documentation](#documentation)
+- [Developers](#developers)
 ## Documentation
 
 Documentation Here
