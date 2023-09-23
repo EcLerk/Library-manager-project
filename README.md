@@ -4,7 +4,8 @@
 ## About
 
 The automated library management system provides the ability to automate processes for libraries of any type and purpose.  
-#### The development was carried out using .NET MAUI  
+  
+**The development was carried out using .NET MAUI**  
 
 ## Content
 - [Description](#description)  
