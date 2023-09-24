@@ -80,15 +80,23 @@ namespace library_manager.ViewModel
         
         private async Task OnOrderButtonClicked()
         {
-            await _orderService.AddAsync(new Order
+            if(Book.NumberOfBooks > 0)
             {
-                BookName = this.Book.Name,
-                UserName = _userService.CurrentUser.UserName,
-                OrderDate = DateOnly.FromDateTime(DateTime.Now)
-            });
+                await _orderService.AddAsync(new Order
+                {
+                    BookName = this.Book.Name,
+                    UserName = _userService.CurrentUser.UserName,
+                    OrderDate = DateOnly.FromDateTime(DateTime.Now)
+                });
 
-            Book.NumberOfBooks -= 1;
-            await _bookService.UpdateAsync(Book);
+                Book.NumberOfBooks -= 1;
+                await _bookService.UpdateAsync(Book);
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Sorry",
+                    "This book is not currently in the library", "Cancel");
+            }
         }
     }
 }

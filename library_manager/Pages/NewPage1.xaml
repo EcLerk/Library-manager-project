@@ -19,13 +19,11 @@
     <ContentPage.MenuBarItems>
         <MenuBarItem Text="Menu"
                      BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}">
-            
+
             <MenuFlyoutSubItem Text="Edit">
                 <MenuFlyoutItem Text="Add book"
                                 Command="{Binding AddBookCommand}"/>
             </MenuFlyoutSubItem>
-            <MenuFlyoutItem Text="My Profile"/>
-                            <!--Command="{Binding}"-->
             <MenuFlyoutItem Text="Orders"
                             Command="{Binding ShowOrdersCommand}"/>
             
