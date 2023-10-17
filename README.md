@@ -20,7 +20,7 @@ The automated library management system provides the ability to automate process
 ## Description
 An automated library management system is a software solution designed to automate and optimize library processes. It provides tools for efficient inventory, cataloging, storage and retrieval of books, as well as management of checkout and return of materials, helping to improve library operations and provide a better patron experience. 
 
-Design patterns such as MVVM, Repository and UnitOfWork were used. Connection to the database was made using the Entity Framework.  
+**Design patterns** such as *MVVM*, *Repository* and *UnitOfWork* were used. Connection to the database was made using the *Entity Framework*.  
 ## Application Interface
 In the application, all users are divided into two roles: *administrators* and *readers*. All users have access to the book collection, and the user can also select a book and go to a page with more detailed information about the book. The reader can order books and view all their orders on a separate page. The administrator has access to add, delete and edit information about books stored in the library. A user with the administrator role can view lists of ordered and issued books.
 ### SingIn&SingUp Pages
